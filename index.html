@@ -1,161 +1,471 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MAP4C Essential Skills Diagnostic</title>
 <style>
-body{font-family:Arial,sans-serif;max-width:850px;margin:0 auto;padding:24px;background:#f5f5f5;line-height:1.5}
-.card{background:#fff;padding:22px;margin:16px 0;border-radius:10px}
-h1{margin-top:0}.question{font-weight:700}
-label{display:block;padding:9px;margin:5px 0;border-radius:6px}
-input[type=text]{padding:10px;width:95%;font-size:16px}
-button{padding:12px 18px;font-size:16px;border:0;border-radius:7px;cursor:pointer}
-.feedback{margin-top:10px;padding:10px;border-radius:6px}.correct{background:#e6f4e6}.wrong{background:#f9e3e3}
-#results{display:none}
+body {
+  font-family: Arial, sans-serif;
+  max-width: 850px;
+  margin: 30px auto;
+  padding: 0 20px;
+  line-height: 1.5;
+  color: #222;
+}
+h1 { margin-bottom: 8px; }
+.question {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+.option {
+  display: block;
+  margin: 9px 0;
+  padding: 7px;
+}
+input[type="text"] {
+  padding: 9px;
+  width: 100%;
+  max-width: 450px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+button {
+  padding: 12px 18px;
+  font-size: 16px;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 8px 8px 8px 0;
+}
+#submitBtn {
+  background: #333;
+  color: white;
+}
+#downloadBtn {
+  background: #555;
+  color: white;
+}
+#results {
+  display: none;
+  border-top: 3px solid #333;
+  margin-top: 30px;
+  padding-top: 20px;
+}
+.correct {
+  background: #e8f5e9;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+.incorrect {
+  background: #ffebee;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+.small {
+  font-size: 14px;
+  color: #555;
+}
 </style>
 </head>
+
 <body>
-<div class="card">
+
 <h1>MAP4C Essential Skills Diagnostic</h1>
-<p>Enter your name and answer all 15 questions. When you submit, you will immediately see your score and feedback.</p>
-<input id="studentName" type="text" placeholder="Enter your name">
-</div>
 
-<form id="quiz">
-<div class="card"><p class="question">1. Calculate: -7 + 12</p>
-<label><input type="radio" name="q1" value="5"> 5</label>
-<label><input type="radio" name="q1" value="-5"> -5</label>
-<label><input type="radio" name="q1" value="19"> 19</label>
-<label><input type="radio" name="q1" value="-19"> -19</label><div id="f1"></div></div>
+<p>
+Enter your name and answer all 15 questions.
+When you submit, you will immediately see your score and feedback.
+</p>
 
-<div class="card"><p class="question">2. Calculate: 18 - 3 × 4</p>
-<label><input type="radio" name="q2" value="60"> 60</label>
-<label><input type="radio" name="q2" value="6"> 6</label>
-<label><input type="radio" name="q2" value="12"> 12</label>
-<label><input type="radio" name="q2" value="15"> 15</label><div id="f2"></div></div>
+<label for="studentName"><strong>Enter your name</strong></label><br>
+<input id="studentName" type="text" placeholder="Your name">
 
-<div class="card"><p class="question">3. Calculate: 3/4 + 1/8</p>
-<label><input type="radio" name="q3" value="7/8"> 7/8</label>
-<label><input type="radio" name="q3" value="4/12"> 4/12</label>
-<label><input type="radio" name="q3" value="5/8"> 5/8</label>
-<label><input type="radio" name="q3" value="1"> 1</label><div id="f3"></div></div>
+<form id="quizForm"></form>
 
-<div class="card"><p class="question">4. What is 15% of 240?</p>
-<label><input type="radio" name="q4" value="24"> 24</label>
-<label><input type="radio" name="q4" value="30"> 30</label>
-<label><input type="radio" name="q4" value="36"> 36</label>
-<label><input type="radio" name="q4" value="40"> 40</label><div id="f4"></div></div>
+<button id="submitBtn" type="button">Submit Quiz</button>
 
-<div class="card"><p class="question">5. A recipe uses 2 cups of flour for 8 servings. How much flour is needed for 12 servings?</p>
-<label><input type="radio" name="q5" value="2.5"> 2.5 cups</label>
-<label><input type="radio" name="q5" value="3"> 3 cups</label>
-<label><input type="radio" name="q5" value="3.5"> 3.5 cups</label>
-<label><input type="radio" name="q5" value="4"> 4 cups</label><div id="f5"></div></div>
-
-<div class="card"><p class="question">6. Simplify: 4x + 7 - 2x + 3</p>
-<label><input type="radio" name="q6" value="2x+10"> 2x + 10</label>
-<label><input type="radio" name="q6" value="6x+10"> 6x + 10</label>
-<label><input type="radio" name="q6" value="2x+4"> 2x + 4</label>
-<label><input type="radio" name="q6" value="6x+4"> 6x + 4</label><div id="f6"></div></div>
-
-<div class="card"><p class="question">7. Solve: 3x - 5 = 16</p>
-<label><input type="radio" name="q7" value="5"> x = 5</label>
-<label><input type="radio" name="q7" value="6"> x = 6</label>
-<label><input type="radio" name="q7" value="7"> x = 7</label>
-<label><input type="radio" name="q7" value="8"> x = 8</label><div id="f7"></div></div>
-
-<div class="card"><p class="question">8. Rearrange the formula A = lw to solve for w.</p>
-<label><input type="radio" name="q8" value="A/l"> w = A/l</label>
-<label><input type="radio" name="q8" value="Al"> w = Al</label>
-<label><input type="radio" name="q8" value="l/A"> w = l/A</label>
-<label><input type="radio" name="q8" value="A-l"> w = A - l</label><div id="f8"></div></div>
-
-<div class="card"><p class="question">9. If f(x) = 2x + 3, what is f(5)?</p>
-<label><input type="radio" name="q9" value="10"> 10</label>
-<label><input type="radio" name="q9" value="11"> 11</label>
-<label><input type="radio" name="q9" value="13"> 13</label>
-<label><input type="radio" name="q9" value="15"> 15</label><div id="f9"></div></div>
-
-<div class="card"><p class="question">10. What is the slope of the line passing through (2, 3) and (6, 11)?</p>
-<label><input type="radio" name="q10" value="1"> 1</label>
-<label><input type="radio" name="q10" value="2"> 2</label>
-<label><input type="radio" name="q10" value="3"> 3</label>
-<label><input type="radio" name="q10" value="4"> 4</label><div id="f10"></div></div>
-
-<div class="card"><p class="question">11. Which equation has slope -2 and y-intercept 5?</p>
-<label><input type="radio" name="q11" value="y=2x+5"> y = 2x + 5</label>
-<label><input type="radio" name="q11" value="y=-2x+5"> y = -2x + 5</label>
-<label><input type="radio" name="q11" value="y=-2x-5"> y = -2x - 5</label>
-<label><input type="radio" name="q11" value="y=5x-2"> y = 5x - 2</label><div id="f11"></div></div>
-
-<div class="card"><p class="question">12. A graph shows that a quantity increases from 20 to 50 when x increases from 2 to 8. What is the average rate of change?</p>
-<label><input type="radio" name="q12" value="3"> 3 units per x</label>
-<label><input type="radio" name="q12" value="4"> 4 units per x</label>
-<label><input type="radio" name="q12" value="5"> 5 units per x</label>
-<label><input type="radio" name="q12" value="6"> 6 units per x</label><div id="f12"></div></div>
-
-<div class="card"><p class="question">13. Convert 2.5 metres to centimetres.</p>
-<label><input type="radio" name="q13" value="25"> 25 cm</label>
-<label><input type="radio" name="q13" value="250"> 250 cm</label>
-<label><input type="radio" name="q13" value="2500"> 2500 cm</label>
-<label><input type="radio" name="q13" value="0.25"> 0.25 cm</label><div id="f13"></div></div>
-
-<div class="card"><p class="question">14. A $1,000 investment earns 4% simple interest for 2 years. How much interest is earned?</p>
-<label><input type="radio" name="q14" value="40">$40</label>
-<label><input type="radio" name="q14" value="60">$60</label>
-<label><input type="radio" name="q14" value="80">$80</label>
-<label><input type="radio" name="q14" value="1040">$1,040</label><div id="f14"></div></div>
-
-<div class="card"><p class="question">15. A phone plan charges $25 per month plus $0.10 per text message. What is the monthly cost for 300 texts?</p>
-<label><input type="radio" name="q15" value="45">$45</label>
-<label><input type="radio" name="q15" value="50">$50</label>
-<label><input type="radio" name="q15" value="55">$55</label>
-<label><input type="radio" name="q15" value="60">$60</label><div id="f15"></div></div>
-
-<div class="card"><button type="button" onclick="gradeQuiz()">Submit Quiz</button></div>
-</form>
-
-<div id="results" class="card"></div>
+<div id="results"></div>
 
 <script>
-const answers={q1:"5",q2:"6",q3:"7/8",q4:"36",q5:"3",q6:"2x+10",q7:"7",q8:"A/l",q9:"13",q10:"2",q11:"y=-2x+5",q12:"5",q13:"250",q14:"80",q15:"55"};
-const feedback={
-q1:"-7 + 12 = 5.",
-q2:"Multiplication comes before subtraction: 3 × 4 = 12, then 18 - 12 = 6.",
-q3:"3/4 = 6/8, so 6/8 + 1/8 = 7/8.",
-q4:"15% of 240 = 0.15 × 240 = 36.",
-q5:"Each serving uses 2 ÷ 8 = 0.25 cup. For 12 servings: 12 × 0.25 = 3 cups.",
-q6:"Combine like terms: 4x - 2x = 2x and 7 + 3 = 10.",
-q7:"Add 5 to both sides: 3x = 21. Divide by 3: x = 7.",
-q8:"Divide both sides of A = lw by l: w = A/l.",
-q9:"f(5) = 2(5) + 3 = 13.",
-q10:"Slope = (11 - 3) ÷ (6 - 2) = 8 ÷ 4 = 2.",
-q11:"In y = mx + b, m is the slope and b is the y-intercept, so y = -2x + 5.",
-q12:"Average rate of change = (50 - 20) ÷ (8 - 2) = 30 ÷ 6 = 5.",
-q13:"1 metre = 100 centimetres, so 2.5 metres = 250 centimetres.",
-q14:"I = Prt = 1000 × 0.04 × 2 = $80.",
-q15:"Cost = 25 + 0.10(300) = 25 + 30 = $55."
-};
-function gradeQuiz(){
- let name=document.getElementById("studentName").value.trim() || "Student";
- let score=0, unanswered=0;
- for(let i=1;i<=15;i++){
-  const chosen=document.querySelector('input[name="q'+i+'"]:checked');
-  const box=document.getElementById("f"+i);
-  if(!chosen){unanswered++;box.className="feedback wrong";box.innerHTML="No answer selected. "+feedback["q"+i];}
-  else if(chosen.value===answers["q"+i]){score++;box.className="feedback correct";box.innerHTML="✓ Correct. "+feedback["q"+i];}
-  else{box.className="feedback wrong";box.innerHTML="✗ Not quite. "+feedback["q"+i];}
- }
- const pct=Math.round(score/15*100);
- const result=document.getElementById("results");
- result.style.display="block";
- result.innerHTML="<h2>Your Result</h2><p><strong>"+name+"</strong>, your score is <strong>"+score+"/15 ("+pct+"%)</strong>.</p>"+
- (unanswered?"<p>You left "+unanswered+" question(s) unanswered.</p>":"")+
- "<p><strong>Important:</strong> Take a screenshot of this result and submit it to Google Classroom.</p>"+
- "<p>Review the feedback beside each question to identify skills you may need to practise.</p>";
- result.scrollIntoView({behavior:"smooth"});
+
+const questions = [
+
+{
+q:"Calculate: -7 + 12",
+options:["5","-5","19","-19"],
+answer:0,
+feedback:"Add 12 to -7: -7 + 12 = 5."
+},
+
+{
+q:"Calculate: 18 - 3 × 4",
+options:["60","6","12","15"],
+answer:1,
+feedback:"Multiply first: 3 × 4 = 12, then 18 - 12 = 6."
+},
+
+{
+q:"Calculate: 3/4 + 1/8",
+options:["7/8","4/12","5/8","1"],
+answer:0,
+feedback:"Convert 3/4 to 6/8, then 6/8 + 1/8 = 7/8."
+},
+
+{
+q:"What is 15% of 240?",
+options:["24","30","36","40"],
+answer:2,
+feedback:"15% of 240 = 0.15 × 240 = 36."
+},
+
+{
+q:"A recipe uses 2 cups of flour for 8 servings. How much flour is needed for 12 servings?",
+options:["2.5 cups","3 cups","3.5 cups","4 cups"],
+answer:1,
+feedback:"The recipe uses 1/4 cup per serving. For 12 servings: 12 × 1/4 = 3 cups."
+},
+
+{
+q:"Simplify: 4x + 7 - 2x + 3",
+options:["2x + 10","6x + 10","2x + 4","6x + 4"],
+answer:0,
+feedback:"Combine like terms: 4x - 2x = 2x and 7 + 3 = 10."
+},
+
+{
+q:"Solve: 3x - 5 = 16",
+options:["x = 5","x = 6","x = 7","x = 8"],
+answer:2,
+feedback:"Add 5 to both sides: 3x = 21, so x = 7."
+},
+
+{
+q:"Rearrange the formula A = lw to solve for w.",
+options:["w = A/l","w = Al","w = l/A","w = A - l"],
+answer:0,
+feedback:"Divide both sides by l: w = A/l."
+},
+
+{
+q:"If f(x) = 2x + 3, what is f(5)?",
+options:["10","11","13","15"],
+answer:2,
+feedback:"Substitute x = 5: f(5) = 2(5) + 3 = 13."
+},
+
+{
+q:"What is the slope of the line passing through (2, 3) and (6, 11)?",
+options:["1","2","3","4"],
+answer:1,
+feedback:"m = (11 - 3)/(6 - 2) = 8/4 = 2."
+},
+
+{
+q:"Which equation has slope -2 and y-intercept 5?",
+options:["y = 2x + 5","y = -2x + 5","y = -2x - 5","y = 5x - 2"],
+answer:1,
+feedback:"In y = mx + b, m is the slope and b is the y-intercept. Therefore y = -2x + 5."
+},
+
+{
+q:"A graph shows that a quantity increases from 20 to 50 when x increases from 2 to 8. What is the average rate of change?",
+options:["3 units per x","4 units per x","5 units per x","6 units per x"],
+answer:2,
+feedback:"Average rate of change = (50 - 20)/(8 - 2) = 30/6 = 5 units per x."
+},
+
+{
+q:"Convert 2.5 metres to centimetres.",
+options:["25 cm","250 cm","2500 cm","0.25 cm"],
+answer:1,
+feedback:"1 metre = 100 centimetres, so 2.5 metres = 250 centimetres."
+},
+
+{
+q:"A $1,000 investment earns 4% simple interest for 2 years. How much interest is earned?",
+options:["$40","$60","$80","$1,040"],
+answer:2,
+feedback:"Simple interest I = Prt = 1000 × 0.04 × 2 = $80."
+},
+
+{
+q:"A phone plan charges $25 per month plus $0.10 per text message. What is the monthly cost for 300 texts?",
+options:["$45","$50","$55","$60"],
+answer:2,
+feedback:"Cost = 25 + 0.10(300) = 25 + 30 = $55."
 }
+
+];
+
+const form = document.getElementById("quizForm");
+
+questions.forEach((item, i) => {
+
+  const div = document.createElement("div");
+  div.className = "question";
+
+  let options = "";
+
+  item.options.forEach((option, j) => {
+
+    options += `
+      <label class="option">
+        <input type="radio" name="q${i}" value="${j}">
+        ${option}
+      </label>
+    `;
+
+  });
+
+  div.innerHTML = `
+    <strong>${i + 1}. ${item.q}</strong>
+    ${options}
+  `;
+
+  form.appendChild(div);
+
+});
+
+
+document.getElementById("submitBtn").addEventListener("click", function() {
+
+  const name = document.getElementById("studentName").value.trim();
+
+  if (!name) {
+    alert("Please enter your name.");
+    return;
+  }
+
+  let unanswered = [];
+
+  for (let i = 0; i < questions.length; i++) {
+
+    if (!document.querySelector(`input[name="q${i}"]:checked`)) {
+      unanswered.push(i + 1);
+    }
+
+  }
+
+  if (unanswered.length > 0) {
+
+    alert(
+      "Please answer all questions before submitting.\n\n" +
+      "Missing question(s): " +
+      unanswered.join(", ")
+    );
+
+    return;
+  }
+
+  let score = 0;
+  let reportRows = [];
+
+  questions.forEach((item, i) => {
+
+    const selected =
+      Number(document.querySelector(`input[name="q${i}"]:checked`).value);
+
+    const correct = selected === item.answer;
+
+    if (correct) {
+      score++;
+    }
+
+    reportRows.push({
+
+      number: i + 1,
+      question: item.q,
+      student: item.options[selected],
+      correctAnswer: item.options[item.answer],
+      isCorrect: correct,
+      feedback: item.feedback
+
+    });
+
+  });
+
+  const percent =
+    Math.round(score / questions.length * 100);
+
+  const now = new Date();
+  const dateTime = now.toLocaleString();
+
+  let html = `
+
+    <h2>Results</h2>
+
+    <p>
+      <strong>${escapeHtml(name)}</strong>
+    </p>
+
+    <p class="small">
+      Completed: ${escapeHtml(dateTime)}
+    </p>
+
+    <h3>
+      Score: ${score}/${questions.length} (${percent}%)
+    </h3>
+
+  `;
+
+  reportRows.forEach(r => {
+
+    html += `
+
+      <div class="${r.isCorrect ? "correct" : "incorrect"}">
+
+        <strong>
+          Q${r.number}. ${escapeHtml(r.question)}
+        </strong>
+
+        <br>
+
+        Student's answer:
+        <strong>${escapeHtml(r.student)}</strong>
+        ${r.isCorrect ? "✓" : "✗"}
+
+        <br>
+
+        Correct answer:
+        <strong>${escapeHtml(r.correctAnswer)}</strong>
+
+        <p>
+          ${escapeHtml(r.feedback)}
+        </p>
+
+      </div>
+
+    `;
+
+  });
+
+  html += `
+
+    <button id="downloadBtn" type="button">
+      Download My Results
+    </button>
+
+    <p class="small">
+      Download this report and upload it to Google Classroom
+      as instructed by your teacher.
+    </p>
+
+  `;
+
+  const results = document.getElementById("results");
+
+  results.innerHTML = html;
+  results.style.display = "block";
+
+  results.scrollIntoView({
+    behavior: "smooth"
+  });
+
+  window.lastReport =
+    buildReport(name, dateTime, score, percent, reportRows);
+
+});
+
+
+function escapeHtml(str) {
+
+  return String(str).replace(/[&<>"']/g, function(c) {
+
+    return {
+
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+
+    }[c];
+
+  });
+
+}
+
+
+function buildReport(name, dateTime, score, percent, rows) {
+
+  let report =
+
+`MAP4C ESSENTIAL SKILLS DIAGNOSTIC
+
+Student: ${name}
+Completed: ${dateTime}
+Score: ${score}/${questions.length} (${percent}%)
+
+`;
+
+  rows.forEach(r => {
+
+    report +=
+
+`QUESTION ${r.number}
+
+${r.question}
+
+Student's answer: ${r.student}
+
+Correct answer: ${r.correctAnswer}
+
+Result: ${r.isCorrect ? "CORRECT" : "INCORRECT"}
+
+Feedback: ${r.feedback}
+
+
+`;
+
+  });
+
+  return report;
+
+}
+
+
+document.getElementById("results").addEventListener("click", function(e) {
+
+  if (e.target.id === "downloadBtn") {
+
+    const blob = new Blob(
+      [window.lastReport],
+      {type:"text/plain;charset=utf-8"}
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const safeName =
+      document.getElementById("studentName")
+      .value
+      .trim()
+      .replace(/[^a-z0-9]+/gi, "_");
+
+    const a = document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+      `MAP4C_Quiz_Results_${safeName}.txt`;
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+    URL.revokeObjectURL(url);
+
+  }
+
+});
+
 </script>
+
 </body>
 </html>
