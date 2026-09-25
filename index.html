@@ -313,37 +313,61 @@ document.getElementById("submitBtn").addEventListener("click", function() {
 
   `;
 
-  reportRows.forEach(r => {
+ reportRows.forEach(r => {
 
-    html += `
+  let choices = "";
 
-      <div class="${r.isCorrect ? "correct" : "incorrect"}">
+  r.options.forEach((option, index) => {
 
-        <strong>
-          Q${r.number}. ${escapeHtml(r.question)}
-        </strong>
+    const letter = String.fromCharCode(65 + index);
 
-        <br>
+    const isSelected = option === r.student;
+    const isCorrectAnswer = option === r.correctAnswer;
 
-        Student's answer:
-        <strong>${escapeHtml(r.student)}</strong>
-        ${r.isCorrect ? "✓" : "✗"}
+    let marker = "";
 
-        <br>
+    if (isSelected && isCorrectAnswer) {
+      marker = " ✓ Student's answer — CORRECT";
+    } else if (isSelected) {
+      marker = " ✗ Student's answer";
+    }
 
-        Correct answer:
-        <strong>${escapeHtml(r.correctAnswer)}</strong>
-
-        <p>
-          ${escapeHtml(r.feedback)}
-        </p>
-
+    choices += `
+      <div style="margin:6px 0;">
+        <strong>${letter}.</strong>
+        ${escapeHtml(option)}
+        ${marker}
       </div>
-
     `;
 
   });
 
+  html += `
+
+    <div class="${r.isCorrect ? "correct" : "incorrect"}">
+
+      <strong>
+        Q${r.number}. ${escapeHtml(r.question)}
+      </strong>
+
+      <div style="margin-top:10px;">
+        ${choices}
+      </div>
+
+      <p>
+        <strong>Correct answer:</strong>
+        ${escapeHtml(r.correctAnswer)}
+      </p>
+
+      <p>
+        ${escapeHtml(r.feedback)}
+      </p>
+
+    </div>
+
+  `;
+
+});
   html += `
 
     <button id="downloadBtn" type="button">
