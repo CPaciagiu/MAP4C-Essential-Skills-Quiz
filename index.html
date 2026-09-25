@@ -276,16 +276,17 @@ document.getElementById("submitBtn").addEventListener("click", function() {
       score++;
     }
 
-    reportRows.push({
+  reportRows.push({
 
       number: i + 1,
       question: item.q,
+      options: item.options,
       student: item.options[selected],
       correctAnswer: item.options[item.answer],
       isCorrect: correct,
       feedback: item.feedback
 
-    });
+});
 
   });
 
